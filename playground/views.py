@@ -10,15 +10,17 @@ conn = mysql.connector.connect(user='root',
                               host='localhost',
                               database='family_members')
 
-
 # Create a cursor to query data.
 cursor = conn.cursor()
-
 # Execute a SQL statement
 cursor.execute('SELECT * from family')
-
 # Fetch the results
 family = cursor.fetchall()
+
+#Function that will print database family_members info.
+def family_members(request):
+    #print out the results.
+    return HttpResponse(family)
 
 #Function that will request a webpage.
 def personal_page(request):
@@ -26,12 +28,6 @@ def personal_page(request):
     return render(request,"hello.html",{'name':'Camilooo'})
 
 
-#Function that will print database family_members info.
-def family_members(request):
-    return HttpResponse(family)
-
-# Create your views here.
-
-# Close the cursor and connection
+# Close the cursor and connection to the database in mysql.
 cursor.close()
 conn.close()
